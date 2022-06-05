@@ -43,7 +43,7 @@ const desktopL = (content: FlattenSimpleInterpolation) =>
         }
     `
 
-const media = {
+export const media = {
     mobile,
     tabletM,
     tabletL,
@@ -51,5 +51,3 @@ const media = {
     desktopM,
     desktopL
 }
-
-export default media
