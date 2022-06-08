@@ -1,8 +1,11 @@
 import type { NextPage } from 'next'
 import styled, { css } from 'styled-components'
 import { FontSizes, Colors } from '../styles/theme'
-import media from '../styles/media'
+import { media } from '../styles/media'
 import Counter from '../components/Counter'
+
+import Button from '../components/button'
+import Layout from '../components/layout'
 
 const Title = styled.h1`
   ${FontSizes.display1}
@@ -41,12 +44,13 @@ const Title = styled.h1`
 
 const IndexPage: NextPage = () => {
   return (
-    <div>
+    <Layout>
       <p>hello</p>
       <Title>Title</Title>
       <Counter />
       <hr />
-    </div>
+      <Button onClick={() => console.log("click")}>버튼</Button>
+    </Layout>
   )
 }
 
