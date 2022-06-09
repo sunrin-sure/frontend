@@ -1,13 +1,12 @@
 
 import Head from 'next/head'
-import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import { Colors } from '../../styles/theme'
 
 import Navbar from '../Navbar'
 
 interface Props {
-    children: ReactNode
+    children: React.ReactNode
     title?: string
 }
 
@@ -24,11 +23,11 @@ const Main = styled.div`
     min-height: calc(100% - 64px);
 `
 
-const Layout = ({ children, title = '메인페이지' }: Props) => {
+const Layout = ({ children, title}: Props) => {
     return (
         <Container>
             <Head>
-                <title>SURE | {title}</title>
+                <title>SURE | {title ? title : ''}</title>
             </Head>
             <Header>
                 <Navbar />
