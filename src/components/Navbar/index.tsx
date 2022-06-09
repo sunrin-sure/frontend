@@ -1,10 +1,13 @@
-import styled, { css } from 'styled-components'
 import { useRouter } from 'next/router'
-
-import { media } from '../../styles/media'
-import Button from '../button'
 import { useState } from 'react'
-import { Breakpoints, Colors } from '../../styles/theme'
+
+import styled, { css } from 'styled-components'
+import { media } from '../../styles/media'
+import { Colors } from '../../styles/theme'
+
+// component
+import Inner from '../layout/Inner'
+import Button from '../button'
 
 interface StyleProps {
 	isActivated: boolean
@@ -12,10 +15,7 @@ interface StyleProps {
 
 const Container = styled.div`
     position: relative;
-	max-width: ${Breakpoints.DesktopM}px;
-    margin: 0 auto;
     height: 64px;
-    padding: 0 40px;
     display: flex;
     justify-content: center;
     ${media.mobile(css`
@@ -65,36 +65,38 @@ const Navbar: React.FC = () => {
 	const [ openDropdown, setOpenDropdown] = useState(false)
 	const router = useRouter()
 	return (
-		<Container>
-			<NavWrapper>
-				<Logo onClick={() => router.push('/')}>
-					로고
-				</Logo>
-				<List>
-					<Item
-						onClick={() => { router.push('/') }}
-						isActivated={router.pathname === '/'}>
-						홈
-					</Item>
-					<Item
-						onClick={() => { router.push('/project') }}
-						isActivated={router.pathname === '/project'}>
-						프로젝트
-					</Item>
-					<Item
-						onClick={() => { router.push('/people') }}
-						isActivated={router.pathname === '/people'}>
-						사람들
-					</Item>
-				</List>
-			</NavWrapper>
-			<NavWrapper>
-				<Button onClick={() => { router.push('/write?type=project') }}>프로젝트 생성</Button>
-				<Profile onClick={() => {setOpenDropdown(!openDropdown)}}>
-					<ProfileImg src='/images/default_profile.png' alt='profile'/>
-				</Profile>
-			</NavWrapper>
-		</Container>
+		<Inner>
+			<Container>
+				<NavWrapper>
+					<Logo onClick={() => router.push('/')}>
+						로고
+					</Logo>
+					<List>
+						<Item
+							onClick={() => { router.push('/') }}
+							isActivated={router.pathname === '/'}>
+							홈
+						</Item>
+						<Item
+							onClick={() => { router.push('/project') }}
+							isActivated={router.pathname === '/project'}>
+							프로젝트
+						</Item>
+						<Item
+							onClick={() => { router.push('/people') }}
+							isActivated={router.pathname === '/people'}>
+							사람들
+						</Item>
+					</List>
+				</NavWrapper>
+				<NavWrapper>
+					<Button onClick={() => { router.push('/write?type=project') }}>프로젝트 생성</Button>
+					<Profile onClick={() => {setOpenDropdown(!openDropdown)}}>
+						<ProfileImg src='/images/default_profile.png' alt='profile'/>
+					</Profile>
+				</NavWrapper>
+			</Container>
+		</Inner>
 	)
 }
 
