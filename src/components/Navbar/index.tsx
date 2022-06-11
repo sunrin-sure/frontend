@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { NextPage } from 'next'
 
 import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
@@ -8,6 +8,7 @@ import { Colors } from '../../styles/theme'
 // component
 import Inner from '../layout/Inner'
 import Button from '../button'
+import ProfileDropdown from './ProfileDropdown'
 
 interface StyleProps {
 	isActivated: boolean
@@ -26,7 +27,7 @@ const NavWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+	gap: 20px;
 `
 const Logo = styled.a`
     display: flex;
@@ -47,23 +48,14 @@ const Item = styled.a<StyleProps>`
 		color: ${Colors.blue[600]};
 	}
 `
-const Profile = styled.button`
+const ButtonWrapper = styled.div`
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-`
-const ProfileImg = styled.img`
-	width: 36px;
-	object-fit: cover;
-	border-radius: 100%;
+	gap: 10px;
 `
 
-const Navbar: React.FC = () => {
-	const [ openDropdown, setOpenDropdown] = useState(false)
+const Navbar: NextPage = () => {
 	const router = useRouter()
+
 	return (
 		<Inner>
 			<Container>
@@ -85,15 +77,17 @@ const Navbar: React.FC = () => {
 						<Item
 							onClick={() => { router.push('/people') }}
 							isActivated={router.pathname === '/people'}>
-							사람들
+							멤버
 						</Item>
 					</List>
 				</NavWrapper>
 				<NavWrapper>
 					<Button onClick={() => { router.push('/write?type=project') }}>프로젝트 생성</Button>
-					<Profile onClick={() => {setOpenDropdown(!openDropdown)}}>
-						<ProfileImg src='/images/default_profile.png' alt='profile'/>
-					</Profile>
+					<ProfileDropdown />
+					{/* <ButtonWrapper>
+						<Button onClick={() => router.push('/enter?type=signin')}>로그인</Button>
+						<Button BgColor={true} onClick={() => router.push('/enter?type=signup')}>회원가입</Button>
+					</ButtonWrapper> */}
 				</NavWrapper>
 			</Container>
 		</Inner>
