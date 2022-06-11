@@ -1,3 +1,4 @@
+import { NextPage } from 'next'
 import styled from 'styled-components'
 import { Breakpoints } from '../../styles/theme'
 
@@ -11,7 +12,7 @@ const Container = styled.div`
     margin: 0 auto;
 `
 
-const Inner = ({ children }: Props) => {
+const Inner: NextPage<Props> = ({ children }) => {
     return (
         <Container>
             {children}

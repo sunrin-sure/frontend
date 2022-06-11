@@ -1,4 +1,5 @@
 
+import { NextPage } from 'next'
 import Head from 'next/head'
 import styled from 'styled-components'
 import { Colors } from '../../styles/theme'
@@ -23,7 +24,7 @@ const Main = styled.div`
     min-height: calc(100% - 64px);
 `
 
-const Layout = ({ children, title}: Props) => {
+const Layout :NextPage<Props> = ({ children, title}) => {
     return (
         <Container>
             <Head>
