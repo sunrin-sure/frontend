@@ -17,7 +17,10 @@ const Container = styled.div`
 `
 const Header = styled.header`
     position: sticky;
-    background-color: ${Colors.white[900]};
+    top: 0;
+    background-color: ${Colors.white};
+    z-index: 50;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 `
 const Main = styled.div`
     width: 100%;
