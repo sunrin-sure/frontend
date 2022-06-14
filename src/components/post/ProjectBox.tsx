@@ -1,11 +1,15 @@
 import { NextPage } from 'next'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Colors, FontSizes } from '../../styles/theme'
 
-import { FiHeart } from 'react-icons/fi'
+import { FiBookmark } from 'react-icons/fi'
 import { useRouter } from 'next/router'
+import { media } from '../../styles/media'
 
+interface Props {
+    projectId: string
+}
 interface LikeProps {
     isLiked?: boolean
 }
@@ -14,18 +18,15 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    background: white;
-    border: 1px solid ${Colors.black[200]};
+    padding: 8px;
+    background: ${Colors.white};
     border-radius: 8px;
     overflow: hidden;
     transition: .3s transform;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     cursor: pointer;
     &:hover {
         transform: translateY(-2px);
-        & img {
-            transition: .3s ease-in-out transform;
-            transform: scale(1.05);
-        }
     }
 `
 const ProjectBoxTop = styled.div`
@@ -33,18 +34,19 @@ const ProjectBoxTop = styled.div`
 `
 const ProjectBoxBadge = styled.div`
     position: absolute;
-    top: 8px;
-    left: 12px;
+    top: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
-    padding: 4px 10px;
-    background-color: ${Colors.blue[500]};
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 6px 14px;
+    background-color: ${Colors.black[900]};
 `
 const ProjectState = styled.span`
     ${FontSizes.caption}
-    color: ${Colors.white[900]};
+    color: ${Colors.white};
 `
 const ProjectBoxThumbNail = styled.div`
     display: inline-flex;
@@ -57,28 +59,34 @@ const ThumbNail = styled.img`
     width: 100%;
     max-height: 120px;
     height: 100%;
+    border-radius: 8px;
     object-fit: cover;
 `
 const ProjectBoxContentWrapper = styled.div`
-    padding: 8px 16px;
+    position: relative;
+    padding: 8px 0 16px;
 `
 const ProjectType = styled.p`
-    ${FontSizes.caption}
-    color: ${Colors.black[300]};
+    ${FontSizes.small}
+    color: ${Colors.blue[300]};
+    ${media.tabletM(css`
+        ${FontSizes.caption}
+    `)}
 `
 const ProjectTitle = styled.p`
+    margin-top: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     ${FontSizes.text}
-    margin-top: 16px;
 `
 const ProjectBoxBottom = styled.div`
-    padding: 0 8px 16px;
 `
 const ProjectBoxBottomWrapper = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 8px 8px 0;
+    padding: 8px 0 0;
     border-top: 1px solid ${Colors.black[100]};
 `
 const ProjectCreator = styled.div`
@@ -92,34 +100,47 @@ const CreatorProfile = styled.img`
     border-radius: 100%;
 `
 const CreatorName = styled.a`
-    ${FontSizes.caption}
+    ${FontSizes.small}
     color: ${Colors.black[600]};
     transition: .3s color;
+    ${media.tabletM(css`
+        ${FontSizes.caption}
+    `)}
     &:hover {
         color: ${Colors.blue[600]};
         text-decoration: underline;
     }
 `
-const ProjectLikeWrapper = styled.div`
+const BookmarkButton = styled.div`
+    position: absolute;
+    right: 10px;
+    transform: translateY(-100%);
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    gap: 4px;   
+    justify-content: center;
+    background-color: ${Colors.white};
+    border-radius: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     &:hover {
-        
         color: ${Colors.blue[600]};
     }
 `
-const LikeButton = styled(FiHeart)<LikeProps>`
-    color: ${({isLiked}) => isLiked ? `${Colors.blue[300]}` : 'transparents'};
-`
-const LikeCount = styled.span`
-
+const BookmarkIcon = styled(FiBookmark)<LikeProps>`
+    font-size: 20px;
+    color: ${({ isLiked }) => isLiked ? `${Colors.blue[300]}` : 'transparents'};
 `
 
-const ProjectBox: NextPage = () => {
+const ProjectBox: NextPage<Props> = ({projectId}) => {
     const router = useRouter()
+
+    const Bookmarked = (e: any) => {
+        e.stopPropagation()
+        console.log('liked')
+    }
     return (
-        <Container>
+        <Container onClick={() => router.push(`/${projectId}`)}>
             <ProjectBoxTop>
                 <ProjectBoxThumbNail>
                     <ThumbNail src={'/images/block_thumbnail.jpg'} alt='project_thumbnail' />
@@ -129,6 +150,9 @@ const ProjectBox: NextPage = () => {
                 </ProjectBoxBadge>
             </ProjectBoxTop>
             <ProjectBoxContentWrapper>
+                <BookmarkButton onClick={Bookmarked}>
+                    <BookmarkIcon />
+                </BookmarkButton>
                 <ProjectType>프로젝트</ProjectType>
                 <ProjectTitle>프로젝트 제목</ProjectTitle>
             </ProjectBoxContentWrapper>
@@ -138,10 +162,6 @@ const ProjectBox: NextPage = () => {
                         <CreatorProfile src={'/images/default_profile.png'} alt='creator_profile' />
                         <CreatorName onClick={() => router.push('/people/userId')}>프로젝트 대표</CreatorName>
                     </ProjectCreator>
-                    <ProjectLikeWrapper>
-                        <LikeButton />
-                        <LikeCount>10</LikeCount>
-                    </ProjectLikeWrapper>
                 </ProjectBoxBottomWrapper>
             </ProjectBoxBottom>
         </Container>
