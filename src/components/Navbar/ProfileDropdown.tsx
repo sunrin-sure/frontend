@@ -1,8 +1,10 @@
 import { NextPage } from 'next'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
-import { Colors } from '../../styles/theme'
+
+import styled, { css } from 'styled-components'
+import { media } from '../../styles/media'
+import { Colors, FontSizes } from '../../styles/theme'
 
 const Container = styled.div`
 	position: relative;
@@ -22,12 +24,12 @@ const ProfileImg = styled.img`
 `
 const DropDownMenu = styled.div`
 	position: absolute;
-    width: 150px;
+    width: 200px;
     right: 0;
 	top: 40px;
-    background-color: white;
-    border-radius: .5rem;
-    padding: .5rem 0;
+    background-color: ${Colors.white};
+    border-radius: 8px;
+    padding: 8px 0;
     border: 1px solid ${Colors.black[100]};
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     animation: rotateMenu 400ms ease-in-out forwards;
@@ -50,18 +52,51 @@ const DropDownItem = styled.div`
     align-items: center;
 `
 const DropDownLink = styled.a`
-    padding: .5rem 1rem;
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
     cursor: pointer;
     &:hover {
         color: ${Colors.blue[600]};
         text-decoration: underline;
+        background-color: ${Colors.grey[100]};
     }
+`
+const DropDownMobileLink = styled(DropDownLink)`
+    display: block;
+    ${media.mobile(css`
+        display: none;
+    `)}
+`
+const DropDownProfileLink = styled.a`
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid ${Colors.grey[100]};
+    cursor: pointer;
+    &:hover {
+        color: ${Colors.blue[500]};
+        background-color: ${Colors.grey[100]};
+        text-decoration: underline;
+    }
+`
+const UserName = styled.span`
+    ${FontSizes.text}
+`
+const DetailText = styled.span`
+    ${FontSizes.small}
 `
 
 const ProfileDropdown: NextPage = () => {
     const [openDropdown, setOpenDropdown] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
     const router = useRouter()
+
+    const onOutsideClick = useCallback((e: any) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+            setOpenDropdown(false)
+        }
+    }, [ref, setOpenDropdown])
 
     useEffect(() => {
         document.addEventListener('mousedown', onOutsideClick)
@@ -71,23 +106,21 @@ const ProfileDropdown: NextPage = () => {
         }
     })
 
-    const onOutsideClick = useCallback((e: any) => {
-        if (!ref.current) return
-        if (ref.current.contains(e.target)) return
-        setOpenDropdown(false)
-    }, [])
-
     return (
-        <Container>
-            <Profile onClick={() => { setOpenDropdown(!openDropdown) }} ref={ref}>
+        <Container ref={ref}>
+            <Profile onClick={() => { setOpenDropdown(!openDropdown) }}>
                 <ProfileImg src='/images/default_profile.png' alt='profile' />
             </Profile>
             {openDropdown && (
-                <DropDownMenu onClick={() => { setOpenDropdown(!openDropdown) }} ref={ref}>
+                <DropDownMenu>
+                    <DropDownProfileLink>
+                        <UserName>username</UserName>
+                        <DetailText>프로필 보기</DetailText>
+                    </DropDownProfileLink>
                     <DropDownItem>
-                        <DropDownLink onClick={() => router.push('/people/username')}>
-                            내프로필
-                        </DropDownLink>
+                        <DropDownMobileLink onClick={() => { router.push('/write?type=project') }}>
+                            프로젝트 생성
+                        </DropDownMobileLink>
                         <DropDownLink onClick={() => router.push('/setting')}>
                             설정
                         </DropDownLink>
