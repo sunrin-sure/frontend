@@ -95,7 +95,7 @@ export const Colors = {
     },
     black: {
         0: '#FFFFFF',
-        25:'#F6F7FA',
+        25: '#F6F7FA',
         50: '#EDEFF5',
         100: '#DCE0EB',
         200: '#C9CDDD',
@@ -107,7 +107,17 @@ export const Colors = {
         800: '#343548',
         900: '#13141C',
     },
-    white: {
-        900: '#FFFFFF',
-    }
+    grey: {
+        50: '#FAFAFA',
+        100: '#F5F5F5',
+        200: '#EEEEEE',
+        300: '#E0E0E0',
+        400: '#BDBDBD',
+        500: '#9E9E9E',
+        600: '#757575',
+        700: '#616161',
+        800: '#424242',
+        900: '#212121',
+    },
+    white: '#FFFFFF'
 }
