@@ -2,28 +2,17 @@ import { NextPage } from 'next'
 
 import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
-import { Colors, FontSizes } from '../../styles/theme'
+import { FontSizes } from '../../styles/theme'
+import { BlockStyle } from '../overrideStyle'
 
 // Component
 import SelectBox from '../select'
-
 
 interface Props {
     children: React.ReactNode
     sectionTitle: string
     selectsList: { value: string, name: string }[][]
 }
-
-const Container = styled.section`
-    margin-top: 16px;
-    padding: 12px;
-    background-color: ${Colors.white};
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
-    ${media.mobile(css`
-        padding: 24px;
-    `)}
-`
 const Grid = styled.div`
     display: grid;
     gap: 20px;
@@ -51,11 +40,9 @@ const MainTop = styled.div`
 `
 const SectionTitle = styled.span`
     ${FontSizes.heading1} 
-    color: ${Colors.black[700]};
 `
 const ContentTitle = styled.span`
     ${FontSizes.heading2}
-    color: ${Colors.black[700]};
 `
 const SelectWrapper = styled.div`
     max-width: 150px;
@@ -74,7 +61,7 @@ const SelectWrapper = styled.div`
 const GridSection: NextPage<Props> = ({ sectionTitle, selectsList, children }) => {
     return (
         <>
-            <Container>
+            <BlockStyle>
                 <MainTop>
                     <SectionTitle>{sectionTitle}</SectionTitle>
                     <SelectWrapper>
@@ -83,15 +70,15 @@ const GridSection: NextPage<Props> = ({ sectionTitle, selectsList, children }) =
                         )}
                     </SelectWrapper>
                 </MainTop>
-            </Container>
-            <Container>
+            </BlockStyle>
+            <BlockStyle>
                 <MainTop>
                     <ContentTitle>검색 결과</ContentTitle>
                 </MainTop>
                 <Grid>
                     {children}
                 </Grid>
-            </Container>
+            </BlockStyle>
         </>
     )
 }

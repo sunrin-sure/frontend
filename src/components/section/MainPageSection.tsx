@@ -2,7 +2,9 @@ import { NextPage } from 'next'
 
 import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
-import { Colors, FontSizes } from '../../styles/theme'
+import { FontSizes } from '../../styles/theme'
+
+import { BlockStyle } from '../overrideStyle'
 
 interface Props {
     projectComponent: JSX.Element[]
@@ -15,33 +17,21 @@ const Container = styled.div`
 `
 const SectionTitle = styled.span`
     ${FontSizes.heading1};
-    color: ${Colors.black[700]};
 `
-const ProjectWrapper = styled.div`
+const ProjectWrapper = styled(BlockStyle)`
     width: 100%;
-    margin-top: 16px;
-    padding: 12px;
-    background-color: ${Colors.white};
-    border-radius: 8px;
-    ${media.mobile(css`
-        padding: 24px;
-    `)}
-    ${media.tabletM(css`
-        dwidth: 66.66666667%;
+    ${media.tabletL(css`
+        width: 66.66666667%;
     `)}
 `
-const MemberWrapper = styled.div`
+const MemberWrapper = styled(BlockStyle)`
     width: 33.33333333%;
-    margin-top: 16px;
-    padding: 24px 24px;
-    background-color: ${Colors.white};
-    border-radius: 8px;
     display: none;
     ${media.tabletL(css`
         display: block;
     `)}
 `
-const ProjectGrid  = styled.div`
+const ProjectGrid = styled.div`
     margin-top: 24px;
     display: grid;
     gap: 20px;
