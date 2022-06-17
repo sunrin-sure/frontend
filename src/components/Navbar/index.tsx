@@ -12,7 +12,7 @@ import { FiMenu } from 'react-icons/fi'
 import Inner from '../layout/Inner'
 import Button from '../button'
 import ProfileDropdown from './ProfileDropdown'
-import Drawer from '../Drawer'
+import Drawer from '../drawer'
 
 interface StyleProps {
 	isActivated: boolean
@@ -137,12 +137,12 @@ const Navbar: NextPage = () => {
 					</List>
 				</NavWrapper>
 				<NavWrapper>
-					<Button onClick={() => { router.push('/write?type=project') }} mobileDisplay='none'>프로젝트 생성</Button>
-					<ProfileDropdown />
-					{/* <ButtonWrapper>
-						<Button onClick={() => router.push('/enter?type=signin')}>로그인</Button>
+					{/* <Button onClick={() => { router.push('/write?type=project') }} mobileDisplay='none'>프로젝트 생성</Button>
+					<ProfileDropdown /> */}
+					<ButtonWrapper>
+						<Button onClick={() => router.push('/enter')}>로그인</Button>
 						<Button BgColor={true} onClick={() => router.push('/enter?type=signup')} mobileDisplay='none'>회원가입</Button>
-					</ButtonWrapper> */}
+					</ButtonWrapper>
 				</NavWrapper>
 			</Container>
 

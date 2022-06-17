@@ -4,7 +4,7 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import { Colors } from '../../styles/theme'
 
-import Navbar from '../Navbar'
+import Navbar from '../navbar'
 
 interface Props {
     children: React.ReactNode
