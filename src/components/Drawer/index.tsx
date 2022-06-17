@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import React from 'react'
 
 import styled from 'styled-components'
 import { Colors } from '../../styles/theme'
