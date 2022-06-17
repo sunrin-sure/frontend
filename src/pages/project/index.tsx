@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 // Component
 import Layout from '../../components/layout'
 import Inner from '../../components/layout/Inner'
-import GridSection from '../../components/page/GridSection'
+import GridSection from '../../components/section/GridSection'
 import ProjectBox from '../../components/post/ProjectBox'
 
 const Project: NextPage = () => {

@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 // Component
 import Layout from '../components/layout'
 import Inner from '../components/layout/Inner'
-import MainSection from '../components/page/MainPageSection'
+import MainSection from '../components/section/MainPageSection'
 import MemberSmallBox from '../components/post/MemberSmallBox'
 import ProjectBox from '../components/post/ProjectBox'
 
