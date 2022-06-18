@@ -6,6 +6,7 @@ import { Colors, FontSizes } from '../../styles/theme'
 import { FiBookmark } from 'react-icons/fi'
 import { useRouter } from 'next/router'
 import { media } from '../../styles/media'
+import { PostBoxStyle } from '../overrideStyle'
 
 interface Props {
     projectId: string
@@ -14,20 +15,8 @@ interface LikeProps {
     isLiked?: boolean
 }
 
-const Container = styled.div`
-    display: flex;
+const Container = styled(PostBoxStyle)`
     flex-direction: column;
-    width: 100%;
-    padding: 8px;
-    background: ${Colors.white};
-    border-radius: 8px;
-    overflow: hidden;
-    transition: .3s transform;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    cursor: pointer;
-    &:hover {
-        transform: translateY(-2px);
-    }
 `
 const ProjectBoxTop = styled.div`
     position: relative;
@@ -64,7 +53,7 @@ const ThumbNail = styled.img`
 `
 const ProjectBoxContentWrapper = styled.div`
     position: relative;
-    padding: 8px 0 16px;
+    padding: 8px 0 8px;
 `
 const ProjectType = styled.p`
     ${FontSizes.small}
@@ -101,7 +90,7 @@ const CreatorProfile = styled.img`
 `
 const CreatorName = styled.a`
     ${FontSizes.small}
-    color: ${Colors.black[600]};
+    color: ${Colors.grey[500]};
     transition: .3s color;
     ${media.tabletM(css`
         ${FontSizes.caption}
@@ -123,7 +112,9 @@ const BookmarkButton = styled.div`
     background-color: ${Colors.white};
     border-radius: 100%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transform: background-color .3s, color .3s;
     &:hover {
+        background-color: ${Colors.grey[100]};
         color: ${Colors.blue[600]};
     }
 `

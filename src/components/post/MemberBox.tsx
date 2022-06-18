@@ -9,27 +9,16 @@ import { Colors, FontSizes } from '../../styles/theme'
 
 // Component
 import Button from '../button'
+import { PostBoxStyle } from '../overrideStyle'
 
 interface LikeProps {
     isLiked?: boolean
 }
 
-const Container = styled.div`
+const Container = styled(PostBoxStyle)`
     position: relative;
-    display: flex;
     flex-direction: column;
-    width: 100%;
     padding: 16px;
-    gap: 8px;
-    background: ${Colors.white};
-    border-radius: 8px;
-    overflow: hidden;
-    transition: .3s transform;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    &:hover {
-        transform: translateY(-2px);
-    }
 `
 const Profile = styled.img`
     width: 50px;

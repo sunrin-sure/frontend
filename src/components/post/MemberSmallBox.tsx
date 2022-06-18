@@ -5,25 +5,15 @@ import { FiHeart } from 'react-icons/fi'
 
 import styled from 'styled-components'
 import { Colors, FontSizes } from '../../styles/theme'
+import { PostBoxStyle } from '../overrideStyle'
 
 interface LikeProps {
     isLiked?: boolean
 }
 
-const Container = styled.div`
-    display: flex;
+const Container = styled(PostBoxStyle)`
     justify-content: space-between;
-    align-items: center;
-    padding: 8px;
-    background: ${Colors.white};
-    border-radius: 8px;
-    overflow: hidden;
-    transition: .3s transform;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 3px;
-    &:hover {
-        transform: translateY(-2px);
-    }
+    align-items: center; 
 `
 const ProfileWrapper = styled.div`
     display: flex;
