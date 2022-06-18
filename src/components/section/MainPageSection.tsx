@@ -21,11 +21,11 @@ const SectionTitle = styled.span`
 const ProjectWrapper = styled(BlockStyle)`
     width: 100%;
     ${media.tabletL(css`
-        width: 66.66666667%;
+        width: 70%;
     `)}
 `
 const MemberWrapper = styled(BlockStyle)`
-    width: 33.33333333%;
+    width: 30%;
     display: none;
     ${media.tabletL(css`
         display: block;
