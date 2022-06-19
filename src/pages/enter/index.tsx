@@ -1,16 +1,22 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
+import { useForm } from '../../hooks'
 import styled, { css } from "styled-components"
 
-import { FiUnlock, FiUserPlus, FiUser } from 'react-icons/fi'
+import { FiUnlock, FiUserPlus } from 'react-icons/fi'
 import { media } from "../../styles/media"
 import { Colors, FontSizes } from "../../styles/theme"
 import { BlockStyle } from "../../components/overrideStyle"
+
+import authValid from '../../utils/valid/authValid'
 
 // Component
 import Layout from "../../components/layout"
 import Inner from "../../components/layout/Inner"
 
+interface InputProps {
+    error: boolean
+}
 interface ButtonWrapperProps {
     justify: string
 }
@@ -20,6 +26,7 @@ const Wrapper = styled.div`
     margin: 0 auto;
     flex-direction: column;
     justify-content: center;
+    gap: 16px;
     align-items: center;
     width: 100%;
     height: calc(100vh - 64px);
@@ -44,7 +51,7 @@ const Label = styled.label`
     ${FontSizes.info}
     padding-bottom: 4px;
 `
-const Input = styled.input`
+const Input = styled.input<InputProps>`
     ${FontSizes.info}
     line-height: 20px;
     padding: 12px 16px;
@@ -70,6 +77,7 @@ const FormButton = styled.button`
     }
 `
 const ServeButtonWrapper = styled.div<ButtonWrapperProps>`
+    position: relative;
     display: flex;
     justify-content: ${({ justify }) => justify};
 `
@@ -84,21 +92,42 @@ const ServeButton = styled.button`
         transition: background-color .3s;
         background-color: ${Colors.grey[200]};
     }
+    &:nth-child(n+2)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 45px;
+        border-radius: 1px;
+        background-color: ${Colors.grey[400]};
+    }
 `
 const ButtonText = styled.span`
     display: inline-block;
     margin-left: 8px;
 `
+const InputError = styled.span`
+    ${FontSizes.caption}
+    color: ${Colors.red[600]};
+`
 
 const Enter: NextPage = () => {
     const router = useRouter()
     const { type } = router.query
-
     const isSignUp = type === "signup"
 
-    const hadleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault()
-    }
+    const initialValues = isSignUp ? { username: "", email: "", password: "", cf_password: "" } : { email: "", password: "" }
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
+        initialValues,
+        onSubmit: (values) => {
+            console.log(values)
+        },
+        validate: authValid
+    })
+
+    console.log(!errors)
 
     return (
         <Layout title={isSignUp ? "회원가입" : "로그인"}>
@@ -106,37 +135,67 @@ const Enter: NextPage = () => {
                 <Wrapper>
                     <SectionTitle>{isSignUp ? "회원가입" : "로그인"}</SectionTitle>
                     <BlockStyle>
-                        <Form onSubmit={hadleSubmit}>
+                        <Form onSubmit={handleSubmit} noValidate>
                             {isSignUp && (
                                 <InputWrapper>
                                     <Label>이름</Label>
-                                    <Input />
+                                    <Input
+                                        type="text"
+                                        name="username"
+                                        value={values.username || ""}
+                                        onChange={handleChange}
+                                        placeholder='이름'
+                                        error={Boolean(errors.username)}
+                                    />
+                                    {errors.username && <InputError>{errors.username}</InputError>}
                                 </InputWrapper>
                             )}
                             <InputWrapper>
                                 <Label>이메일</Label>
-                                <Input />
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    value={values.email || ""}
+                                    onChange={handleChange}
+                                    placeholder='이메일'
+                                    error={Boolean(errors.email)}
+                                />
+                                {errors.email && <InputError>{errors.email}</InputError>}
                             </InputWrapper>
                             <InputWrapper>
                                 <Label>비밀번호</Label>
-                                <Input />
+                                <Input
+                                    type="password"
+                                    name="password"
+                                    value={values.password || ""}
+                                    onChange={handleChange}
+                                    placeholder='비밀번호'
+                                    error={Boolean(errors.password)}
+                                />
+                                {errors.password && <InputError>{errors.password}</InputError>}
                             </InputWrapper>
                             {isSignUp && (
                                 <InputWrapper>
                                     <Label>비밀번호 재입력</Label>
-                                    <Input />
+                                    <Input
+                                        type="password"
+                                        name="cf_password"
+                                        value={values.cf_password || ""}
+                                        onChange={handleChange}
+                                        placeholder='비밀번호 재입력'
+                                        error={Boolean(errors.cf_password)}
+                                    />
+                                    {errors.cf_password && <InputError>{errors.cf_password}</InputError>}
                                 </InputWrapper>
                             )}
                             {isSignUp ?
-                                <FormButton type="submit">회원가입</FormButton>
+                                <FormButton type="submit" disabled={isLoading}>회원가입</FormButton>
                                 :
-                                <FormButton type="submit">로그인</FormButton>
+                                <FormButton type="submit" disabled={isLoading}>로그인</FormButton>
                             }
                         </Form>
                         <ServeButtonWrapper justify={isSignUp ? 'flex-end' : 'space-between'}>
-                            {isSignUp ? (
-                                <ServeButton onClick={() => router.push('/enter')}><FiUser /><ButtonText>로그인</ButtonText></ServeButton>
-                            ) : (
+                            {!isSignUp && (
                                 <>
                                     <ServeButton><FiUnlock /><ButtonText>비밀번호 찾기</ButtonText></ServeButton>
                                     <ServeButton onClick={() => router.push('/enter?type=signup')}><FiUserPlus /><ButtonText>회원가입</ButtonText></ServeButton>
