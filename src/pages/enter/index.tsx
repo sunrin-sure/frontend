@@ -56,7 +56,7 @@ const Input = styled.input<InputProps>`
     line-height: 20px;
     padding: 12px 16px;
     border-radius: 8px;
-    border: 1px solid ${Colors.grey[300]};
+    border: 1px solid ${({ error }) => error ? Colors.red[500] : Colors.grey[300]};
     margin-top: 4px;
     &:focus {
         transition: box-shadow .3s;
@@ -113,12 +113,8 @@ const InputError = styled.span`
     color: ${Colors.red[600]};
 `
 
-const Enter: NextPage = () => {
-    const router = useRouter()
-    const { type } = router.query
-    const isSignUp = type === "signup"
-
-    const initialValues = isSignUp ? { username: "", email: "", password: "", cf_password: "" } : { email: "", password: "" }
+const SignUp: NextPage = () => {
+    const initialValues = { username: "", email: "", password: "", cf_password: "" }
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: (values) => {
@@ -127,7 +123,106 @@ const Enter: NextPage = () => {
         validate: authValid
     })
 
-    console.log(!errors)
+    return (
+        <Form onSubmit={handleSubmit} noValidate>
+            <InputWrapper>
+                <Label>이름</Label>
+                <Input
+                    type="text"
+                    name="username"
+                    value={values.username || ""}
+                    onChange={handleChange}
+                    placeholder='이름'
+                    error={Boolean(errors.username)}
+                />
+                {errors.username && <InputError>{errors.username}</InputError>}
+            </InputWrapper>
+            <InputWrapper>
+                <Label>이메일</Label>
+                <Input
+                    type="email"
+                    name="email"
+                    value={values.email || ""}
+                    onChange={handleChange}
+                    placeholder='이메일'
+                    error={Boolean(errors.email)}
+                />
+                {errors.email && <InputError>{errors.email}</InputError>}
+            </InputWrapper>
+            <InputWrapper>
+                <Label>비밀번호</Label>
+                <Input
+                    type="password"
+                    name="password"
+                    value={values.password || ""}
+                    onChange={handleChange}
+                    placeholder='비밀번호'
+                    error={Boolean(errors.password)}
+                />
+                {errors.password && <InputError>{errors.password}</InputError>}
+            </InputWrapper>
+            <InputWrapper>
+                <Label>비밀번호 재입력</Label>
+                <Input
+                    type="password"
+                    name="cf_password"
+                    value={values.cf_password || ""}
+                    onChange={handleChange}
+                    placeholder='비밀번호 재입력'
+                    error={Boolean(errors.cf_password)}
+                />
+                {errors.cf_password && <InputError>{errors.cf_password}</InputError>}
+            </InputWrapper>
+            <FormButton type="submit" disabled={isLoading}>회원가입</FormButton>
+        </Form>
+    )
+}
+
+const SignIn: NextPage = () => {
+    const initialValues = { email: "", password: "" }
+    const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
+        initialValues,
+        onSubmit: (values) => {
+            console.log(values)
+        },
+        validate: authValid
+    })
+
+    return (
+        <Form onSubmit={handleSubmit} noValidate>
+            <InputWrapper>
+                <Label>이메일</Label>
+                <Input
+                    type="email"
+                    name="email"
+                    value={values.email || ""}
+                    onChange={handleChange}
+                    placeholder='이메일'
+                    error={Boolean(errors.email)}
+                />
+                {errors.email && <InputError>{errors.email}</InputError>}
+            </InputWrapper>
+            <InputWrapper>
+                <Label>비밀번호</Label>
+                <Input
+                    type="password"
+                    name="password"
+                    value={values.password || ""}
+                    onChange={handleChange}
+                    placeholder='비밀번호'
+                    error={Boolean(errors.password)}
+                />
+                {errors.password && <InputError>{errors.password}</InputError>}
+            </InputWrapper>
+            <FormButton type="submit" disabled={isLoading}>로그인</FormButton>
+        </Form>
+    )
+}
+
+const Enter: NextPage = () => {
+    const router = useRouter()
+    const { type } = router.query
+    const isSignUp = type === "signup"
 
     return (
         <Layout title={isSignUp ? "회원가입" : "로그인"}>
@@ -135,65 +230,7 @@ const Enter: NextPage = () => {
                 <Wrapper>
                     <SectionTitle>{isSignUp ? "회원가입" : "로그인"}</SectionTitle>
                     <BlockStyle>
-                        <Form onSubmit={handleSubmit} noValidate>
-                            {isSignUp && (
-                                <InputWrapper>
-                                    <Label>이름</Label>
-                                    <Input
-                                        type="text"
-                                        name="username"
-                                        value={values.username || ""}
-                                        onChange={handleChange}
-                                        placeholder='이름'
-                                        error={Boolean(errors.username)}
-                                    />
-                                    {errors.username && <InputError>{errors.username}</InputError>}
-                                </InputWrapper>
-                            )}
-                            <InputWrapper>
-                                <Label>이메일</Label>
-                                <Input
-                                    type="email"
-                                    name="email"
-                                    value={values.email || ""}
-                                    onChange={handleChange}
-                                    placeholder='이메일'
-                                    error={Boolean(errors.email)}
-                                />
-                                {errors.email && <InputError>{errors.email}</InputError>}
-                            </InputWrapper>
-                            <InputWrapper>
-                                <Label>비밀번호</Label>
-                                <Input
-                                    type="password"
-                                    name="password"
-                                    value={values.password || ""}
-                                    onChange={handleChange}
-                                    placeholder='비밀번호'
-                                    error={Boolean(errors.password)}
-                                />
-                                {errors.password && <InputError>{errors.password}</InputError>}
-                            </InputWrapper>
-                            {isSignUp && (
-                                <InputWrapper>
-                                    <Label>비밀번호 재입력</Label>
-                                    <Input
-                                        type="password"
-                                        name="cf_password"
-                                        value={values.cf_password || ""}
-                                        onChange={handleChange}
-                                        placeholder='비밀번호 재입력'
-                                        error={Boolean(errors.cf_password)}
-                                    />
-                                    {errors.cf_password && <InputError>{errors.cf_password}</InputError>}
-                                </InputWrapper>
-                            )}
-                            {isSignUp ?
-                                <FormButton type="submit" disabled={isLoading}>회원가입</FormButton>
-                                :
-                                <FormButton type="submit" disabled={isLoading}>로그인</FormButton>
-                            }
-                        </Form>
+                        {isSignUp ? <SignUp /> : <SignIn  />}
                         <ServeButtonWrapper justify={isSignUp ? 'flex-end' : 'space-between'}>
                             {!isSignUp && (
                                 <>
