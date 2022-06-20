@@ -114,7 +114,6 @@ const BookmarkButton = styled.div`
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     transform: background-color .3s, color .3s;
     &:hover {
-        background-color: ${Colors.grey[100]};
         color: ${Colors.blue[600]};
     }
 `
