@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
@@ -92,11 +92,11 @@ const ProfileDropdown: NextPage = () => {
     const ref = useRef<HTMLDivElement>(null)
     const router = useRouter()
 
-    const onOutsideClick = useCallback((e: any) => {
+    const onOutsideClick = (e: any) => {
         if (ref.current && !ref.current.contains(e.target)) {
             setOpenDropdown(false)
         }
-    }, [ref, setOpenDropdown])
+    }
 
     useEffect(() => {
         document.addEventListener('mousedown', onOutsideClick)
