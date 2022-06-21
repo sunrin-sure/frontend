@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { FiChevronDown } from 'react-icons/fi'
 import styled, { css } from 'styled-components'
@@ -15,10 +15,13 @@ interface Props {
 
 const Container = styled.div`
     position: relative;
-    width: 200px;
+    width: 100%;
     cursor: pointer;
+    ${media.mobile(css`
+        min-width: 200px;
+    `)}
 `
-const DownIcon = styled(FiChevronDown) <IconProps>`
+const DownIcon = styled(FiChevronDown)<IconProps>`
     position: absolute;
     top: 50%;
     right: 8px;
@@ -45,7 +48,7 @@ const SelectList = styled.div`
     border-radius: 8px;
     background-color: ${Colors.white};
     border: 1px solid ${Colors.grey[200]};
-    z-index: 50;
+    z-index: 10;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 1px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 `
 const SelectItem = styled.div`
