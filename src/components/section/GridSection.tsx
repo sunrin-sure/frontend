@@ -6,7 +6,7 @@ import { FontSizes } from '../../styles/theme'
 import { BlockStyle } from '../overrideStyle'
 
 // Component
-import SelectBox from '../select'
+import SelectBox from '../selectBox'
 
 interface Props {
     children: React.ReactNode
@@ -45,15 +45,12 @@ const ContentTitle = styled.span`
     ${FontSizes.heading2}
 `
 const SelectWrapper = styled.div`
-    max-width: 150px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     ${media.mobile(css`
-        max-width: none;
         gap: 16px;
         flex-direction: row;
-        justify-content: center;
         align-items: center;
     `)}
 `
@@ -66,7 +63,7 @@ const GridSection: NextPage<Props> = ({ sectionTitle, selectsList, children }) =
                     <SectionTitle>{sectionTitle}</SectionTitle>
                     <SelectWrapper>
                         {selectsList.map((selectList, index) =>
-                            <SelectBox key={index} selectList={selectList} />
+                            <SelectBox key={index} optionData={selectList} />
                         )}
                     </SelectWrapper>
                 </MainTop>
