@@ -18,7 +18,7 @@ const Container = styled.div`
     width: 100%;
     cursor: pointer;
     ${media.mobile(css`
-        min-width: 200px;
+        min-width: 180px;
     `)}
 `
 const DownIcon = styled(FiChevronDown)<IconProps>`

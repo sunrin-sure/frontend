@@ -49,7 +49,7 @@ const SelectWrapper = styled.div`
     flex-direction: column;
     gap: 8px;
     ${media.mobile(css`
-        gap: 16px;
+        gap: 8px;
         flex-direction: row;
         align-items: center;
     `)}
