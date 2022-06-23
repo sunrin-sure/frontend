@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.transign.co'
+export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://api.rarp.kr'
 
-export const TRANSLATE_API = `${BASE_URL}/translate/text`
-export const HISTORY_API = `${BASE_URL}/translate/history`
+export const AUTH_API = `${BASE_URL}/auth`
+export const USERS_API = `${BASE_URL}/users`
