@@ -1,26 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { createStore, compose, applyMiddleware } from 'redux'
 import { createWrapper } from 'next-redux-wrapper'
-import { createLogger } from 'redux-logger'
+import createSagaMiddleware from 'redux-saga'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import logger from 'redux-logger'
 
-import reducer from './slices'
+import rootReducer from './reducers'
+import rootSaga from './sagas'
 
 const devMode = process.env.NODE_ENV === 'development'
 
-const logger = createLogger()
+const configureStore = () => {
+    const sagaMiddleware = createSagaMiddleware()
+    const enhancer =
+            devMode
+            ? composeWithDevTools(applyMiddleware(logger, sagaMiddleware))
+            : compose(applyMiddleware(sagaMiddleware))
+    const store = createStore(rootReducer, enhancer);
 
-const initialState = {}
+    (store as any).sagaTask = sagaMiddleware.run(rootSaga)
+    return store
+}
 
-const store = configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-    devTools: devMode,
-    preloadedState: initialState,
-    enhancers: (defaultEnhancers) => [...defaultEnhancers]
-})
-
-export const makeStore = () => store
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-
-export const wrapper = createWrapper(makeStore)
+export default createWrapper(configureStore, { debug: devMode })
