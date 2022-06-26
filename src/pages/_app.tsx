@@ -1,7 +1,15 @@
 import type { AppProps } from 'next/app'
-import { wrapper } from '../store'
+
+// redux
+import withReduxSaga from 'next-redux-saga'
+import wrapper from '../store'
 
 import { GlobalStyle } from '../styles/globalStyle'
+
+import axios from 'axios'
+// import { BASE_URL } from '../utils/url'
+// axios.defaults.baseURL = BASE_URL
+axios.defaults.withCredentials = true
 
 function Sure({ Component, pageProps }: AppProps) {
 	return (
@@ -12,4 +20,6 @@ function Sure({ Component, pageProps }: AppProps) {
 	)
 }
 
-export default wrapper.withRedux(Sure)
+
+
+export default wrapper.withRedux(withReduxSaga(Sure))
