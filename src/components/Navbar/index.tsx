@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
@@ -93,6 +94,7 @@ const ButtonWrapper = styled.div`
 `
 
 const Navbar: NextPage = () => {
+	const { isSignedIn } = useSelector((state: any) => state.auth)
 	const router = useRouter()
 
 	const [isDrawerOpned, setIsDrawerOpned] = useState<boolean>(false)
@@ -137,12 +139,17 @@ const Navbar: NextPage = () => {
 					</List>
 				</NavWrapper>
 				<NavWrapper>
-					{/* <Button onClick={() => { router.push('/write?type=project') }} mobileDisplay='none'>프로젝트 생성</Button>
-					<ProfileDropdown /> */}
-					<ButtonWrapper>
-						<Button onClick={() => router.push('/enter')}>로그인</Button>
-						<Button BgColor={true} onClick={() => router.push('/enter?type=signup')} mobileDisplay='none'>회원가입</Button>
-					</ButtonWrapper>
+					{isSignedIn ? (
+						<>
+							<Button onClick={() => { router.push('/write?type=project') }} mobileDisplay='none'>프로젝트 생성</Button>
+							<ProfileDropdown />
+						</>
+					) : (
+						<ButtonWrapper>
+							<Button onClick={() => router.push('/enter')}>로그인</Button>
+							<Button BgColor={true} onClick={() => router.push('/enter?type=signup')} mobileDisplay='none'>회원가입</Button>
+						</ButtonWrapper>
+					)}
 				</NavWrapper>
 			</Container>
 
