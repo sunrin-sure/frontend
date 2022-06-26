@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { AuthProps } from '../ts/interface'
 
 interface useFormProps {
@@ -12,9 +12,9 @@ function useForm({ initialValues, onSubmit, validate }: useFormProps) {
     const [errors, setErrors] = useState<AuthProps>({})
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [e.target.name]: e.target.value })
-    }
+    }, [values])
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         setIsLoading(true)
