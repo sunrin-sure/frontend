@@ -14,6 +14,12 @@ import authValid from '../../utils/valid/authValid'
 import Layout from "../../components/layout"
 import Inner from "../../components/layout/Inner"
 
+// redux
+import { useDispatch } from 'react-redux'
+import { sginInAction, signUpAction } from '../../store/actions/authAction'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+
 interface InputProps {
     error: boolean
 }
@@ -114,11 +120,13 @@ const InputError = styled.span`
 `
 
 const SignUp: NextPage = () => {
+    const dispatch = useDispatch()
     const initialValues = { username: "", email: "", password: "", cf_password: "" }
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: (values) => {
             console.log(values)
+            dispatch(signUpAction(values))
         },
         validate: authValid
     })
@@ -179,11 +187,13 @@ const SignUp: NextPage = () => {
 }
 
 const SignIn: NextPage = () => {
+    const dispatch = useDispatch()
     const initialValues = { email: "", password: "" }
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: (values) => {
             console.log(values)
+            dispatch(sginInAction(values))
         },
         validate: authValid
     })
@@ -220,9 +230,17 @@ const SignIn: NextPage = () => {
 }
 
 const Enter: NextPage = () => {
+    const { isSignedIn, user } = useSelector((state: any) => state.auth)
     const router = useRouter()
     const { type } = router.query
     const isSignUp = type === "signup"
+
+    useEffect(() => {
+        if (user) {
+            alert('already signin')
+            router.push('/')
+        }
+    }, [user])
 
     return (
         <Layout title={isSignUp ? "회원가입" : "로그인"}>
