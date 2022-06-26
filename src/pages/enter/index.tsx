@@ -236,7 +236,7 @@ const Enter: NextPage = () => {
     const isSignUp = type === "signup"
 
     useEffect(() => {
-        if (user) {
+        if (user && isSignedIn) {
             alert('already signin')
             router.push('/')
         }
