@@ -1,8 +1,8 @@
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { FC } from 'react'
 import Layout from '../../components/layout'
 
-const Write: FC = () => {
+const Write: NextPage = () => {
     const router = useRouter()
     const { type } = router.query
 
