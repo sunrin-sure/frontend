@@ -1,17 +1,28 @@
 import type { AppProps } from 'next/app'
+import axios from 'axios'
 
 // redux
 import withReduxSaga from 'next-redux-saga'
+import { useDispatch } from 'react-redux'
 import wrapper from '../store'
 
 import { GlobalStyle } from '../styles/globalStyle'
+import { useEffect } from 'react'
+import { getTokenAction } from '../store/actions/authAction'
 
-import axios from 'axios'
-// import { BASE_URL } from '../utils/url'
-// axios.defaults.baseURL = BASE_URL
 axios.defaults.withCredentials = true
 
-function Sure({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		if (
+		typeof window === 'object' && 
+		JSON.parse(localStorage.getItem('first_login') || 'false')
+		) {
+			dispatch(getTokenAction())
+		}
+	}, [dispatch])
 	return (
 		<>
 			<GlobalStyle />
@@ -20,6 +31,4 @@ function Sure({ Component, pageProps }: AppProps) {
 	)
 }
 
-
-
-export default wrapper.withRedux(withReduxSaga(Sure))
+export default wrapper.withRedux(withReduxSaga(App))
