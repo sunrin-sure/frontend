@@ -7,7 +7,7 @@ import { media } from '../../styles/media'
 import { Colors, FontSizes } from '../../styles/theme'
 
 interface IconProps {
-    show: boolean
+    show: string
 }
 interface Props {
     optionData: { value: string, name: string }[]
@@ -82,7 +82,7 @@ const SelectBox: NextPage<Props> = ({ optionData }) => {
 
     return (
         <Container onClick={() => setShowOptions(!showOptions)} ref={ref}>
-            <DownIcon show={showOptions} />
+            <DownIcon show={`${showOptions}`} />
             <Selected>{currentOption.name}</Selected>
             {showOptions && (
                 <SelectList>
