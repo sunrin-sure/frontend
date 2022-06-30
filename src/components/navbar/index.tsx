@@ -94,7 +94,7 @@ const ButtonWrapper = styled.div`
 `
 
 const Navbar: NextPage = () => {
-	const { isSignedIn } = useSelector((state: any) => state.auth)
+	const { user, signedIn } = useSelector((state: any) => state.auth)
 	const router = useRouter()
 
 	const [isDrawerOpned, setIsDrawerOpned] = useState<boolean>(false)
@@ -139,10 +139,10 @@ const Navbar: NextPage = () => {
 					</List>
 				</NavWrapper>
 				<NavWrapper>
-					{isSignedIn ? (
+					{signedIn ? (
 						<>
 							<Button onClick={() => { router.push('/write?type=project') }} mobileDisplay='none'>프로젝트 생성</Button>
-							<ProfileDropdown />
+							<ProfileDropdown user={user} />
 						</>
 					) : (
 						<ButtonWrapper>
