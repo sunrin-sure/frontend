@@ -9,6 +9,8 @@ import wrapper from '../store'
 import { GlobalStyle } from '../styles/globalStyle'
 import { useEffect } from 'react'
 import { getTokenAction } from '../store/actions/authAction'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 axios.defaults.withCredentials = true
 
@@ -25,6 +27,7 @@ function App({ Component, pageProps }: AppProps) {
 	}, [dispatch])
 	return (
 		<>
+			<ToastContainer hideProgressBar={false} autoClose={2000} limit={3} />
 			<GlobalStyle />
 			<Component {...pageProps} />
 		</>

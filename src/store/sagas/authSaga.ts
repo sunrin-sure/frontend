@@ -1,7 +1,9 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 import { all, fork, call, put, takeLatest } from 'redux-saga/effects'
 
 import { signInAPI, signUpAPI, signOutAPI, getUserAPI, refreshAPI } from '../../utils/api/auth'
+import { LoadingToast, updateToastFail, updateToastSuccess } from '../../utils/toast/toast'
 
 import {
     SIGNIN_SUCCESS,
@@ -22,32 +24,41 @@ import {
 } from '../types/auth'
 
 function* signInSaga({ payload }: any): any {
+    const id = LoadingToast('로그인...')
     try {
         const { data: result } = yield call(signInAPI, payload)
         yield put({ type: SIGNIN_SUCCESS, payload: result.data })
         axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
         localStorage.setItem('first_login', 'true')
+        updateToastSuccess(id, '로그인 성공!')
     } catch (error: any) {
         yield put({ type: SIGNIN_ERROR, payload: error })
+        updateToastFail(id, '로그인 실패!')
     }
 }
 
 function* signOutSaga(): any {
+    const id = LoadingToast('로그아웃...')
     try {
         const result = yield call(signOutAPI)
         yield put({ type: SIGNOUT_SUCCESS, payload: result })
         localStorage.removeItem('first_login')
+        updateToastSuccess(id, '로그아웃 성공!')
     } catch (error: any) {
         yield put({ type: SIGNOUT_ERROR, payload: error })
+        updateToastFail(id, '로그아웃 실패!')
     }
 }
 
 function* signUpSaga({ payload }: any): any {
+    const id = LoadingToast('회원가입...')
     try {
         const result = yield call(signUpAPI, payload)
         yield put({ type: SIGNUP_SUCCESS, payload: result })
+        updateToastSuccess(id, '회원가입 성공!')
     } catch (error: any) {
         yield put({ type: SIGNUP_ERROR, payload: error })
+        updateToastFail(id, '회원가입 실패!')
     }
 }
 
