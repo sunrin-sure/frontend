@@ -6,6 +6,15 @@ import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
 import { Colors, FontSizes } from '../../styles/theme'
 
+import { signOutAction } from '../../store/actions/authAction'
+import { useDispatch } from 'react-redux'
+
+import { UserProps } from '../../interface'
+
+interface Props {
+    user: UserProps
+}
+
 const Container = styled.div`
 	position: relative;
 `
@@ -87,7 +96,8 @@ const DetailText = styled.span`
     ${FontSizes.small}
 `
 
-const ProfileDropdown: NextPage = () => {
+const ProfileDropdown: NextPage<Props> = ({user}) => {
+    const dispatch = useDispatch()
     const [openDropdown, setOpenDropdown] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
     const router = useRouter()
@@ -106,15 +116,19 @@ const ProfileDropdown: NextPage = () => {
         }
     })
 
+    const LogoutOnClick = () => {
+        dispatch(signOutAction())
+    }
+
     return (
         <Container ref={ref}>
             <Profile onClick={() => { setOpenDropdown(!openDropdown) }}>
-                <ProfileImg src='/images/default_profile.png' alt='profile' />
+                <ProfileImg src={user.avatar} alt='profile' />
             </Profile>
             {openDropdown && (
                 <DropDownMenu>
                     <DropDownProfileLink>
-                        <UserName>username</UserName>
+                        <UserName>{user.username}</UserName>
                         <DetailText>프로필 보기</DetailText>
                     </DropDownProfileLink>
                     <DropDownItem>
@@ -124,7 +138,7 @@ const ProfileDropdown: NextPage = () => {
                         <DropDownLink onClick={() => router.push('/setting')}>
                             설정
                         </DropDownLink>
-                        <DropDownLink onClick={() => router.push('/logout')}>
+                        <DropDownLink onClick={LogoutOnClick}>
                             로그아웃
                         </DropDownLink>
                     </DropDownItem>
