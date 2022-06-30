@@ -1,14 +1,18 @@
-import { AuthProps } from '../../ts/interface'
+import { AuthProps } from '../../interface'
 import {
     SIGNIN_LOADING,
     SIGNOUT_LOADING,
     SIGNUP_LOADING,
+    GET_TOKEN_LOADING,
+    AUTH_USER_LOADING,
+    SIGNUP_RESET
 } from '../types/auth'
 
-export const sginInAction = (data: AuthProps) => ({
+export const signInAction = (data: AuthProps) => ({
     type: SIGNIN_LOADING,
     payload: {
-        data
+        email: data.email,
+        password: data.password,
     }
 })
 export const signUpAction = (data: AuthProps) => ({
@@ -21,6 +25,18 @@ export const signUpAction = (data: AuthProps) => ({
     }
 })
 
+export const signUpResetAction = () => ({
+    type: SIGNUP_RESET
+})
+
 export const signOutAction = () => ({
     type: SIGNOUT_LOADING,
+})
+
+export const getTokenAction = () => ({
+    type: GET_TOKEN_LOADING,
+})
+
+export const getAuthUserAction = () => ({
+    type: AUTH_USER_LOADING
 })
