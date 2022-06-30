@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { AuthProps } from '../ts/interface'
+import { AuthProps } from '../interface'
 
 interface useFormProps {
     initialValues: AuthProps
