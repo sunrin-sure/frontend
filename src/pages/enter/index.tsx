@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import { useForm } from '../../hooks'
@@ -15,10 +16,8 @@ import Layout from "../../components/layout"
 import Inner from "../../components/layout/Inner"
 
 // redux
-import { useDispatch } from 'react-redux'
-import { sginInAction, signUpAction } from '../../store/actions/authAction'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { signInAction, signUpAction, signUpResetAction } from '../../store/actions/authAction'
 
 interface InputProps {
     error: boolean
@@ -121,15 +120,23 @@ const InputError = styled.span`
 
 const SignUp: NextPage = () => {
     const dispatch = useDispatch()
+    const { signedUp } = useSelector((state: any) => state.auth)
+    const router = useRouter()
     const initialValues = { username: "", email: "", password: "", cf_password: "" }
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: (values) => {
-            console.log(values)
             dispatch(signUpAction(values))
         },
         validate: authValid
     })
+
+    useEffect(() => {
+        if (signedUp) {
+            router.push('/enter')
+            dispatch(signUpResetAction())
+        }
+    }, [signedUp, router, dispatch])
 
     return (
         <Form onSubmit={handleSubmit} noValidate>
@@ -192,8 +199,7 @@ const SignIn: NextPage = () => {
     const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: (values) => {
-            console.log(values)
-            dispatch(sginInAction(values))
+            dispatch(signInAction(values))
         },
         validate: authValid
     })
@@ -230,17 +236,14 @@ const SignIn: NextPage = () => {
 }
 
 const Enter: NextPage = () => {
-    const { isSignedIn, user } = useSelector((state: any) => state.auth)
+    const { user } = useSelector((state: any) => state.auth)
     const router = useRouter()
     const { type } = router.query
     const isSignUp = type === "signup"
 
     useEffect(() => {
-        if (user && isSignedIn) {
-            alert('already signin')
-            router.push('/')
-        }
-    }, [user])
+        if (user) router.push('/')
+    }, [user, router])
 
     return (
         <Layout title={isSignUp ? "회원가입" : "로그인"}>
@@ -248,7 +251,7 @@ const Enter: NextPage = () => {
                 <Wrapper>
                     <SectionTitle>{isSignUp ? "회원가입" : "로그인"}</SectionTitle>
                     <BlockStyle>
-                        {isSignUp ? <SignUp /> : <SignIn  />}
+                        {isSignUp ? <SignUp /> : <SignIn />}
                         <ServeButtonWrapper justify={isSignUp ? 'flex-end' : 'space-between'}>
                             {!isSignUp && (
                                 <>
