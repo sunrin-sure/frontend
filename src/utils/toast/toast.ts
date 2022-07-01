@@ -6,9 +6,9 @@ export const LoadingToast = (render: string) => {
 }
 
 export const updateToastSuccess = (loadingId: Id, render: string) => {
-    toast.update(loadingId, { render: render, type: "success", isLoading: false, autoClose: 2000, closeButton: true })
+    toast.update(loadingId, { render: render, type: "success", isLoading: false, autoClose: 2000 })
 }
 
 export const updateToastFail = (loadingId: Id, render: string) => {
-    toast.update(loadingId, {render: render, type: "error", isLoading: false, autoClose: 2000, closeButton: true })
+    toast.update(loadingId, {render: render, type: "error", isLoading: false, autoClose: 2000 })
 }
