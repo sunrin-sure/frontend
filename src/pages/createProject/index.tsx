@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
 
-const Write: NextPage = () => {
+const CreateProject: NextPage = () => {
     const router = useRouter()
     const { type } = router.query
 
@@ -17,4 +17,4 @@ const Write: NextPage = () => {
     )
 }
 
-export default Write
+export default CreateProject

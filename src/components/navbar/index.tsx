@@ -141,7 +141,7 @@ const Navbar: NextPage = () => {
 				<NavWrapper>
 					{signedIn ? (
 						<>
-							<Button onClick={() => { router.push('/write?type=project') }} mobileDisplay='none'>프로젝트 생성</Button>
+							<Button onClick={() => { router.push('/createProject') }} mobileDisplay='none'>프로젝트 생성</Button>
 							<ProfileDropdown user={user} />
 						</>
 					) : (
