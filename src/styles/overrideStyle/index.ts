@@ -8,7 +8,6 @@ export const BlockStyle = styled.section`
   background-color: ${Colors.white};
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  width: 100%;
   ${media.mobile(css`
       padding: 24px;
   `)}
