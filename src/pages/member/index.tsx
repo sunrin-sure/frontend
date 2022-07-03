@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import Layout from '../../components/layout'
 import Inner from '../../components/layout/Inner'
 import MemberBox from '../../components/post/MemberBox'
-import GridSection from '../../components/section/GridSection'
+import ServeSection from '../../components/section/ServePageSection'
 
 
 const Member: NextPage = () => {
@@ -17,7 +17,7 @@ const Member: NextPage = () => {
     return (
         <Layout title='팀원 모집'>
             <Inner>
-                <GridSection
+                <ServeSection
                     sectionTitle='팀원 찾기'
                     selectsList={[fieldsList]}
                 >
@@ -25,7 +25,7 @@ const Member: NextPage = () => {
                     <MemberBox />
                     <MemberBox />
                     <MemberBox />
-                </GridSection>
+                </ServeSection>
             </Inner>
         </Layout>
     )

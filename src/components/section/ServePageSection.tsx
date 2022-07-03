@@ -55,7 +55,7 @@ const SelectWrapper = styled.div`
     `)}
 `
 
-const GridSection: NextPage<Props> = ({ sectionTitle, selectsList, children }) => {
+const ServeSection: NextPage<Props> = ({ sectionTitle, selectsList, children }) => {
     return (
         <>
             <BlockStyle>
@@ -80,4 +80,4 @@ const GridSection: NextPage<Props> = ({ sectionTitle, selectsList, children }) =
     )
 }
 
-export default GridSection
+export default ServeSection
