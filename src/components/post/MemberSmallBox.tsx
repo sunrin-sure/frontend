@@ -5,7 +5,7 @@ import { FiHeart } from 'react-icons/fi'
 
 import styled from 'styled-components'
 import { Colors, FontSizes } from '../../styles/theme'
-import { PostBoxStyle } from '../overrideStyle'
+import { PostBoxStyle } from '../../styles/overrideStyle'
 
 interface LikeProps {
     isLiked?: boolean

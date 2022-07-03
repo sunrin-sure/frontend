@@ -9,7 +9,7 @@ import { Colors, FontSizes } from '../../styles/theme'
 
 // Component
 import Button from '../button'
-import { PostBoxStyle } from '../overrideStyle'
+import { PostBoxStyle } from '../../styles/overrideStyle'
 
 interface LikeProps {
     isLiked?: boolean

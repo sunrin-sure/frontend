@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
-import { media } from '../../styles/media'
-import { Colors } from '../../styles/theme'
+import { media } from '../media'
+import { Colors } from '../theme'
 
 export const BlockStyle = styled.section`
   margin-top: 16px;

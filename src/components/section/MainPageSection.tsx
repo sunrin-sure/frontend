@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { media } from '../../styles/media'
 import { FontSizes } from '../../styles/theme'
 
-import { BlockStyle } from '../overrideStyle'
+import { BlockStyle } from '../../styles/overrideStyle'
 
 interface Props {
     projectComponent: JSX.Element[]

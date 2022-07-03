@@ -6,7 +6,7 @@ import { Colors, FontSizes } from '../../styles/theme'
 import { FiBookmark } from 'react-icons/fi'
 import { useRouter } from 'next/router'
 import { media } from '../../styles/media'
-import { PostBoxStyle } from '../overrideStyle'
+import { PostBoxStyle } from '../../styles/overrideStyle'
 
 interface Props {
     projectId: string

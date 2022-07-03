@@ -7,7 +7,7 @@ import styled, { css } from "styled-components"
 import { FiUnlock, FiUserPlus } from 'react-icons/fi'
 import { media } from "../../styles/media"
 import { Colors, FontSizes } from "../../styles/theme"
-import { BlockStyle } from "../../components/overrideStyle"
+import { BlockStyle } from "../../styles/overrideStyle"
 
 import authValid from '../../utils/valid/authValid'
 
@@ -203,7 +203,7 @@ const SignIn: NextPage = () => {
         },
         validate: authValid
     })
-    
+
     return (
         <Form onSubmit={handleSubmit} noValidate>
             <InputWrapper>
