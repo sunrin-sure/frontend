@@ -2,7 +2,7 @@ import axiosApi from '../../utils/api/axiosApi'
 
 import { all, fork, call, put, takeLatest } from 'redux-saga/effects'
 
-import { signInAPI, signUpAPI, signOutAPI, getUserAPI, refreshAPI } from '../../utils/api/auth'
+import { signInAPI, signUpAPI, signOutAPI, refreshAPI } from '../../utils/api/auth'
 import { LoadingToast, updateToastFail, updateToastSuccess } from '../../utils/toast/toast'
 
 import {
@@ -29,7 +29,7 @@ function* signInSaga({ payload }: any): any {
         const { data: result } = yield call(signInAPI, payload)
         yield put({ type: SIGNIN_SUCCESS, payload: result.data })
         axiosApi.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
-        localStorage.setItem('first_login', 'true')
+        localStorage.setItem('USER', JSON.stringify(result.data.user))
         updateToastSuccess(id, '로그인 성공!')
     } catch (error: any) {
         yield put({ type: SIGNIN_ERROR, payload: error })
@@ -39,10 +39,10 @@ function* signInSaga({ payload }: any): any {
 
 function* signOutSaga(): any {
     const id = LoadingToast('로그아웃...')
+    localStorage.removeItem('USER')
     try {
         const result = yield call(signOutAPI)
         yield put({ type: SIGNOUT_SUCCESS, payload: result })
-        localStorage.removeItem('first_login')
         updateToastSuccess(id, '로그아웃 성공!')
     } catch (error: any) {
         yield put({ type: SIGNOUT_ERROR, payload: error })
@@ -67,16 +67,14 @@ function* getTokenSaga(): any {
         const { data: result } = yield call(refreshAPI)
         yield put({ type: GET_TOKEN_SUCCESS, payload: result.data })
         axiosApi.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
-        yield call(getAuthUserSaga)
     } catch (error: any) {
         yield put({ type: GET_TOKEN_ERROR, payload: error })
     }
 }
 
-function* getAuthUserSaga(): any {
+function* getAuthUserSaga({ payload }: any): any {
     try {
-        const { data: result } = yield call(getUserAPI)
-        yield put({ type: AUTH_USER_SUCCESS, payload: result.data })
+        yield put({ type: AUTH_USER_SUCCESS, payload: payload.user })
     } catch (error: any) {
         yield put({ type: AUTH_USER_ERROR, payload: error })
     }

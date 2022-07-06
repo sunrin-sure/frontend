@@ -1,4 +1,4 @@
-import { AuthProps } from '../../interface'
+import { AuthProps, UserProps } from '../../interface'
 import {
     SIGNIN_LOADING,
     SIGNOUT_LOADING,
@@ -37,6 +37,9 @@ export const getTokenAction = () => ({
     type: GET_TOKEN_LOADING,
 })
 
-export const getAuthUserAction = () => ({
-    type: AUTH_USER_LOADING
+export const getAuthUserAction = (data: UserProps) => ({
+    type: AUTH_USER_LOADING,
+    payload: {
+        user: data
+    }
 })
