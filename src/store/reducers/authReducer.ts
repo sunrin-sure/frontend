@@ -2,20 +2,20 @@ import { createReducer } from 'typesafe-actions'
 import { AuthState } from '../interface/state.interface'
 import {
     SIGNIN_SUCCESS,
-    SIGNIN_LOADING,
+    SIGNIN_REQUEST,
     SIGNIN_ERROR,
     SIGNOUT_SUCCESS,
-    SIGNOUT_LOADING,
+    SIGNOUT_REQUEST,
     SIGNOUT_ERROR,
     SIGNUP_SUCCESS,
-    SIGNUP_LOADING,
+    SIGNUP_REQUEST,
     SIGNUP_ERROR,
     SIGNUP_RESET,
     GET_TOKEN_SUCCESS,
-    GET_TOKEN_LOADING,
+    GET_TOKEN_REQUEST,
     GET_TOKEN_ERROR,
     AUTH_USER_SUCCESS,
-    AUTH_USER_LOADING,
+    AUTH_USER_REQUEST,
     AUTH_USER_ERROR
 } from '../types/auth'
 
@@ -30,7 +30,7 @@ const initialState: AuthState = {
 
 export default createReducer<AuthState>(initialState, {
     // signin
-    [SIGNIN_LOADING]: (state) => ({
+    [SIGNIN_REQUEST]: (state) => ({
         ...state,
         isLoading: true,
     }),
@@ -50,7 +50,7 @@ export default createReducer<AuthState>(initialState, {
     }),
 
     // signout
-    [SIGNOUT_LOADING]: (state) => ({
+    [SIGNOUT_REQUEST]: (state) => ({
         ...state,
         isLoading: true,
     }),
@@ -69,7 +69,7 @@ export default createReducer<AuthState>(initialState, {
     }),
 
     // signup
-    [SIGNUP_LOADING]: (state) => ({
+    [SIGNUP_REQUEST]: (state) => ({
         ...state,
         isLoading: true,
     }),
@@ -92,7 +92,7 @@ export default createReducer<AuthState>(initialState, {
 
 
     // get token
-    [GET_TOKEN_LOADING]: (state) => ({
+    [GET_TOKEN_REQUEST]: (state) => ({
         ...state,
         isLoading: true,
         accessToken: '',
@@ -111,7 +111,7 @@ export default createReducer<AuthState>(initialState, {
     }),
 
     // get auth user
-    [AUTH_USER_LOADING]: (state) => ({
+    [AUTH_USER_REQUEST]: (state) => ({
         ...state,
         isLoading: true,
     }),

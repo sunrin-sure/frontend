@@ -7,19 +7,19 @@ import { LoadingToast, updateToastFail, updateToastSuccess } from '../../utils/t
 
 import {
     SIGNIN_SUCCESS,
-    SIGNIN_LOADING,
+    SIGNIN_REQUEST,
     SIGNIN_ERROR,
     SIGNOUT_SUCCESS,
-    SIGNOUT_LOADING,
+    SIGNOUT_REQUEST,
     SIGNOUT_ERROR,
     SIGNUP_SUCCESS,
-    SIGNUP_LOADING,
+    SIGNUP_REQUEST,
     SIGNUP_ERROR,
     GET_TOKEN_SUCCESS,
-    GET_TOKEN_LOADING,
+    GET_TOKEN_REQUEST,
     GET_TOKEN_ERROR,
     AUTH_USER_SUCCESS,
-    AUTH_USER_LOADING,
+    AUTH_USER_REQUEST,
     AUTH_USER_ERROR
 } from '../types/auth'
 
@@ -81,23 +81,23 @@ function* getAuthUserSaga({ payload }: any): any {
 }
 
 function* watchSignIn() {
-    yield takeLatest(SIGNIN_LOADING, signInSaga)
+    yield takeLatest(SIGNIN_REQUEST, signInSaga)
 }
 
 function* watchSignOut() {
-    yield takeLatest(SIGNOUT_LOADING, signOutSaga)
+    yield takeLatest(SIGNOUT_REQUEST, signOutSaga)
 }
 
 function* watchSignUp() {
-    yield takeLatest(SIGNUP_LOADING, signUpSaga)
+    yield takeLatest(SIGNUP_REQUEST, signUpSaga)
 }
 
 function* watchGetToken() {
-    yield takeLatest(GET_TOKEN_LOADING, getTokenSaga)
+    yield takeLatest(GET_TOKEN_REQUEST, getTokenSaga)
 }
 
 function* watchGetAuthUser() {
-    yield takeLatest(AUTH_USER_LOADING, getAuthUserSaga)
+    yield takeLatest(AUTH_USER_REQUEST, getAuthUserSaga)
 }
 
 export default function* AuthSaga() {

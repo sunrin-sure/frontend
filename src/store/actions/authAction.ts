@@ -1,22 +1,22 @@
 import { AuthProps, UserProps } from '../../interface'
 import {
-    SIGNIN_LOADING,
-    SIGNOUT_LOADING,
-    SIGNUP_LOADING,
-    GET_TOKEN_LOADING,
-    AUTH_USER_LOADING,
-    SIGNUP_RESET
+    SIGNUP_RESET,
+    AUTH_USER_REQUEST,
+    GET_TOKEN_REQUEST,
+    SIGNOUT_REQUEST,
+    SIGNUP_REQUEST,
+    SIGNIN_REQUEST
 } from '../types/auth'
 
 export const signInAction = (data: AuthProps) => ({
-    type: SIGNIN_LOADING,
+    type: SIGNIN_REQUEST,
     payload: {
         email: data.email,
         password: data.password,
     }
 })
 export const signUpAction = (data: AuthProps) => ({
-    type: SIGNUP_LOADING,
+    type: SIGNUP_REQUEST,
     payload: {
         username: data.username,
         email: data.email,
@@ -30,15 +30,15 @@ export const signUpResetAction = () => ({
 })
 
 export const signOutAction = () => ({
-    type: SIGNOUT_LOADING,
+    type: SIGNOUT_REQUEST,
 })
 
 export const getTokenAction = () => ({
-    type: GET_TOKEN_LOADING,
+    type: GET_TOKEN_REQUEST,
 })
 
 export const getAuthUserAction = (data: UserProps) => ({
-    type: AUTH_USER_LOADING,
+    type: AUTH_USER_REQUEST,
     payload: {
         user: data
     }
