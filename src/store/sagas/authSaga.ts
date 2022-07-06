@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosApi from '../../utils/api/axiosApi'
 
 import { all, fork, call, put, takeLatest } from 'redux-saga/effects'
 
@@ -28,7 +28,7 @@ function* signInSaga({ payload }: any): any {
     try {
         const { data: result } = yield call(signInAPI, payload)
         yield put({ type: SIGNIN_SUCCESS, payload: result.data })
-        axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
+        axiosApi.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
         localStorage.setItem('first_login', 'true')
         updateToastSuccess(id, '로그인 성공!')
     } catch (error: any) {
@@ -66,7 +66,7 @@ function* getTokenSaga(): any {
     try {
         const { data: result } = yield call(refreshAPI)
         yield put({ type: GET_TOKEN_SUCCESS, payload: result.data })
-        axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
+        axiosApi.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`
         yield call(getAuthUserSaga)
     } catch (error: any) {
         yield put({ type: GET_TOKEN_ERROR, payload: error })
