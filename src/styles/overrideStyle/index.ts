@@ -6,6 +6,7 @@ export const BlockStyle = styled.section`
   margin-top: 16px;
   padding: 12px;
   background-color: ${Colors.white};
+  width: 100%;
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   ${media.mobile(css`
