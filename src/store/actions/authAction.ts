@@ -1,4 +1,4 @@
-import { AuthProps, UserProps } from '../../interface'
+import { AuthProps } from '../../interface'
 import {
     SIGNUP_RESET,
     AUTH_USER_REQUEST,
