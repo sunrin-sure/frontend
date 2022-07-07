@@ -20,7 +20,7 @@ const CreateProject: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = withAuth(wrapper.getServerSideProps(
-    store => async ctx => {
+    () => async () => {
         return {
             props: {}
         }
