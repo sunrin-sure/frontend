@@ -17,7 +17,7 @@ function App({ Component, pageProps }: AppProps) {
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('USER')|| 'null')
 		if (typeof window === 'object' && user) {
-			dispatch(getAuthUserAction(user))
+			dispatch(getAuthUserAction())
 			dispatch(getTokenAction())
 		}
 	}, [dispatch])

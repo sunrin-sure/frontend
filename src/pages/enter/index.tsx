@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
-import { NextPage } from "next"
+import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import { useForm } from '../../hooks'
-import styled, { css } from "styled-components"
+import wrapper from '../../store'
 
+import styled, { css } from "styled-components"
 import { FiUnlock, FiUserPlus } from 'react-icons/fi'
 import { media } from "../../styles/media"
 import { Colors, FontSizes } from "../../styles/theme"
@@ -266,5 +267,26 @@ const Enter: NextPage = () => {
         </Layout>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
+    store => async ctx => {
+        const { req } = ctx
+
+        const cookie = req.headers.cookie
+        const token = cookie?.split(';').find((token) => token.includes('refresh_token'))
+
+        if (token) {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: "/"
+                }
+            }
+        }
+        return {
+            props: {}
+        }
+    }
+)
 
 export default Enter

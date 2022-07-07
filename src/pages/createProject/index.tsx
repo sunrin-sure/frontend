@@ -1,5 +1,7 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { withAuth } from '../../components/HOC/withAuth'
+import wrapper from '../../store'
 import Layout from '../../components/layout'
 
 const CreateProject: NextPage = () => {
@@ -16,5 +18,13 @@ const CreateProject: NextPage = () => {
         </Layout>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = withAuth(wrapper.getServerSideProps(
+    store => async ctx => {
+        return {
+            props: {}
+        }
+    }
+))
 
 export default CreateProject

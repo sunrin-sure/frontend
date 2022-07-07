@@ -3,10 +3,15 @@ import { HYDRATE } from "next-redux-wrapper"
 import auth from './authReducer'
 import { rootState } from '../interface/state.interface'
 
-const rootReducer = (state: rootState | undefined , action: AnyAction):CombinedState<rootState> => {
+const rootReducer = (state: rootState | undefined, action: AnyAction): CombinedState<rootState> => {
     switch (action.type) {
         case HYDRATE:
-            return { ...action.payload }
+            const nextState = {
+                ...state,
+                ...action.payload,
+            }
+            if (state?.auth) nextState.auth = state?.auth
+            return nextState
         default: {
             const combineReducer = combineReducers({
                 auth

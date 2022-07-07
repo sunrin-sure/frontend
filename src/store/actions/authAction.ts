@@ -37,9 +37,6 @@ export const getTokenAction = () => ({
     type: GET_TOKEN_REQUEST,
 })
 
-export const getAuthUserAction = (data: UserProps) => ({
+export const getAuthUserAction = () => ({
     type: AUTH_USER_REQUEST,
-    payload: {
-        user: data
-    }
 })

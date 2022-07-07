@@ -118,6 +118,7 @@ const ProfileDropdown: NextPage<Props> = ({user}) => {
 
     const LogoutOnClick = () => {
         dispatch(signOutAction())
+        router.push('/')
     }
 
     return (

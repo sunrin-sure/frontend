@@ -2,7 +2,7 @@ import axiosApi from '../../utils/api/axiosApi'
 
 import { all, fork, call, put, takeLatest } from 'redux-saga/effects'
 
-import { signInAPI, signUpAPI, signOutAPI, refreshAPI } from '../../utils/api/auth'
+import { signInAPI, signUpAPI, signOutAPI, getUserAPI, refreshAPI } from '../../utils/api/auth'
 import { LoadingToast, updateToastFail, updateToastSuccess } from '../../utils/toast/toast'
 
 import {
@@ -72,9 +72,10 @@ function* getTokenSaga(): any {
     }
 }
 
-function* getAuthUserSaga({ payload }: any): any {
+function* getAuthUserSaga(): any {
     try {
-        yield put({ type: AUTH_USER_SUCCESS, payload: payload.user })
+        const { data: result } = yield call(getUserAPI)
+        yield put({ type: AUTH_USER_SUCCESS, payload: result.data })
     } catch (error: any) {
         yield put({ type: AUTH_USER_ERROR, payload: error })
     }
