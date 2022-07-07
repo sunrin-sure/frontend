@@ -269,7 +269,7 @@ const Enter: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-    store => async ctx => {
+    () => async ctx => {
         const { req } = ctx
 
         const cookie = req.headers.cookie
